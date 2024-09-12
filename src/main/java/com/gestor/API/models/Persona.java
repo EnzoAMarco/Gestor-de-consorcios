@@ -1,6 +1,6 @@
 package com.gestor.API.models;
 
-import views.PersonaView;
+import com.gestor.API.DTOs.PersonaDTO;
 
 public class Persona {
 
@@ -20,8 +20,8 @@ public class Persona {
 		return nombre;
 	}
 
-	public PersonaView toView() {
-		return new PersonaView(documento, nombre);
+	public PersonaDTO toView() {
+		return new PersonaDTO(documento, nombre);
 	}
 
 	public void save() {

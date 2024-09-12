@@ -1,11 +1,11 @@
 package com.gestor.API.models;
 
+import com.gestor.API.DTOs.EdificioDTO;
+import com.gestor.API.DTOs.UnidadDTO;
+import com.gestor.API.exceptions.UnidadException;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import exceptions.UnidadException;
-import views.EdificioView;
-import views.UnidadView;
 
 public class Unidad {
 
@@ -91,8 +91,8 @@ public class Unidad {
 		return inquilinos;
 	}
 
-	public UnidadView toView() {
-		EdificioView auxEdificio = edificio.toView();
-		return new UnidadView(id, piso, numero, habitado, auxEdificio);
+	public UnidadDTO toView() {
+		EdificioDTO auxEdificio = edificio.toView();
+		return new UnidadDTO(id, piso, numero, habitado, auxEdificio);
 	}
 }

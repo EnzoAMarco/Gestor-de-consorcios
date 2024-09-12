@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import views.EdificioView;
+import com.gestor.API.DTOs.EdificioDTO;
 
 public class Edificio {
 	
@@ -82,7 +82,7 @@ public class Edificio {
 		return resultado;
 	}
 
-	public EdificioView toView() {
-		return new EdificioView(codigo, nombre, direccion);
+	public EdificioDTO toView() {
+		return new EdificioDTO(codigo, nombre, direccion);
 	}
 }

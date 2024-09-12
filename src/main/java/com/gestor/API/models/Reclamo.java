@@ -1,25 +1,27 @@
 package com.gestor.API.models;
 
+import com.gestor.API.DTOs.Estado;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import views.Estado;
+
 
 public class Reclamo {
 
 	private int numero;
 	private Persona usuario;
 	private Edificio edificio;
-	private String ubicaci�n;
+	private String ubicacion;
 	private String descripcion;
 	private Unidad unidad;
 	private Estado estado;
 	private List<Imagen> imagenes;
 	
-	public Reclamo(Persona usuario, Edificio edificio, String ubicaci�n, String descripcion, Unidad unidad) {
+	public Reclamo(Persona usuario, Edificio edificio, String ubicacion, String descripcion, Unidad unidad) {
 		this.usuario = usuario;
 		this.edificio = edificio;
-		this.ubicaci�n = ubicaci�n;
+		this.ubicacion = ubicacion;
 		this.descripcion = descripcion;
 		this.unidad = unidad;
 		this.estado = Estado.nuevo;
@@ -48,8 +50,8 @@ public class Reclamo {
 		return edificio;
 	}
 
-	public String getUbicaci�n() {
-		return ubicaci�n;
+	public String getUbicacion() {
+		return ubicacion;
 	}
 
 	public String getDescripcion() {
