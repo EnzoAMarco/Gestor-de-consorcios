@@ -1,14 +1,14 @@
-package com.gestor.API.DTO;
+package com.gestor.API.DTOs;
 
-public class ImagenView {
+public class ImagenDTO {
 	
 	private int numero;
 	private String direccion;
 	private String tipo;
 	
-	public ImagenView() {}
+	public ImagenDTO() {}
 
-	public ImagenView(int numero, String direccion, String tipo) {
+	public ImagenDTO(int numero, String direccion, String tipo) {
 		this.numero = numero;
 		this.direccion = direccion;
 		this.tipo = tipo;

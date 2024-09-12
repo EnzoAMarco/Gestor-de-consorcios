@@ -1,13 +1,13 @@
-package com.gestor.API.DTO;
+package com.gestor.API.DTOs;
 
-public class PersonaView {
+public class PersonaDTO {
 	
 	private String documento;
 	private String nombre;
 	
-	public PersonaView() {}
+	public PersonaDTO() {}
 
-	public PersonaView(String documento, String nombre) {
+	public PersonaDTO(String documento, String nombre) {
 		this.documento = documento;
 		this.nombre = nombre;
 	}

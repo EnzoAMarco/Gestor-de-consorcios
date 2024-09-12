@@ -1,14 +1,14 @@
-package com.gestor.API.DTO;
+package com.gestor.API.DTOs;
 
-public class EdificioView {
+public class EdificioDTO {
 
 	private int codigo;
 	private String nombre;
 	private String direccion;
 	
-	public EdificioView () {}
+	public EdificioDTO() {}
 	
-	public EdificioView(int codigo, String nombre, String direccion) {
+	public EdificioDTO(int codigo, String nombre, String direccion) {
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.direccion = direccion;

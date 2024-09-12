@@ -1,22 +1,18 @@
 package com.gestor.API.controllers;
 
+import com.gestor.API.DTOs.*;
+import com.gestor.API.exceptions.EdificioException;
+import com.gestor.API.exceptions.PersonaException;
+import com.gestor.API.exceptions.ReclamoException;
+import com.gestor.API.exceptions.UnidadException;
+import com.gestor.API.models.Edificio;
+import com.gestor.API.models.Persona;
+import com.gestor.API.models.Reclamo;
+import com.gestor.API.models.Unidad;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
-import exceptions.EdificioException;
-import exceptions.PersonaException;
-import exceptions.ReclamoException;
-import exceptions.UnidadException;
-import modelo.Edificio;
-import modelo.Persona;
-import modelo.Reclamo;
-import modelo.Unidad;
-import views.EdificioView;
-import views.Estado;
-import views.PersonaView;
-import views.ReclamoView;
-import views.UnidadView;
 
 public class Controlador {
 
@@ -30,12 +26,12 @@ public class Controlador {
 		return instancia;
 	}
 	
-	public List<EdificioView> getEdificios(){
+	public List<EdificioDTO> getEdificios(){
 		return null;
 	}
-	
-	public List<UnidadView> getUnidadesPorEdificio(int codigo) throws EdificioException{
-		List<UnidadView> resultado = new ArrayList<UnidadView>();
+
+	public List<UnidadDTO> getUnidadesPorEdificio(int codigo) throws EdificioException {
+		List<UnidadDTO> resultado = new ArrayList<UnidadDTO>();
 		Edificio edificio = buscarEdificio(codigo);
 		List<Unidad> unidades = edificio.getUnidades();
 		for(Unidad unidad : unidades)
@@ -43,8 +39,8 @@ public class Controlador {
 		return resultado;
 	}
 	
-	public List<PersonaView> habilitadosPorEdificio(int codigo) throws EdificioException{
-		List<PersonaView> resultado = new ArrayList<PersonaView>();
+	public List<PersonaDTO> habilitadosPorEdificio(int codigo) throws EdificioException{
+		List<PersonaDTO> resultado = new ArrayList<PersonaDTO>();
 		Edificio edificio = buscarEdificio(codigo);
 		Set<Persona> habilitados = edificio.habilitados();
 		for(Persona persona : habilitados)
@@ -52,8 +48,8 @@ public class Controlador {
 		return resultado;
 	}
 
-	public List<PersonaView> dueniosPorEdificio(int codigo) throws EdificioException{
-		List<PersonaView> resultado = new ArrayList<PersonaView>();
+	public List<PersonaDTO> dueniosPorEdificio(int codigo) throws EdificioException{
+		List<PersonaDTO> resultado = new ArrayList<PersonaDTO>();
 		Edificio edificio = buscarEdificio(codigo);
 		Set<Persona> duenios = edificio.duenios();
 		for(Persona persona : duenios)
@@ -61,8 +57,8 @@ public class Controlador {
 		return resultado;
 	}
 
-	public List<PersonaView> habitantesPorEdificio(int codigo) throws EdificioException{
-		List<PersonaView> resultado = new ArrayList<PersonaView>();
+	public List<PersonaDTO> habitantesPorEdificio(int codigo) throws EdificioException{
+		List<PersonaDTO> resultado = new ArrayList<PersonaDTO>();
 		Edificio edificio = buscarEdificio(codigo);
 		Set<Persona> habitantes = edificio.duenios();
 		for(Persona persona : habitantes)
@@ -70,8 +66,8 @@ public class Controlador {
 		return resultado;
 	}
 
-	public List<PersonaView> dueniosPorUnidad(int codigo, String piso, String numero) throws UnidadException{
-		List<PersonaView> resultado = new ArrayList<PersonaView>();
+	public List<PersonaDTO> dueniosPorUnidad(int codigo, String piso, String numero) throws UnidadException{
+		List<PersonaDTO> resultado = new ArrayList<PersonaDTO>();
 		Unidad unidad = buscarUnidad(codigo, piso, numero);
 		List<Persona> duenios = unidad.getDuenios();
 		for(Persona persona : duenios)
@@ -79,8 +75,8 @@ public class Controlador {
 		return resultado;
 	}
 
-	public List<PersonaView> inquilinosPorUnidad(int codigo, String piso, String numero) throws UnidadException{
-		List<PersonaView> resultado = new ArrayList<PersonaView>();
+	public List<PersonaDTO> inquilinosPorUnidad(int codigo, String piso, String numero) throws UnidadException {
+		List<PersonaDTO> resultado = new ArrayList<PersonaDTO>();
 		Unidad unidad = buscarUnidad(codigo, piso, numero);
 		List<Persona> inquilinos = unidad.getInquilinos();
 		for(Persona persona : inquilinos)
@@ -132,31 +128,38 @@ public class Controlador {
 		persona.delete();
 	}
 	
-	public List<ReclamoView> reclamosPorEdificio(int codigo){
-		List<ReclamoView> resultado = new ArrayList<ReclamoView>();
+	public List<ReclamoDTO> reclamosPorEdificio(int codigo){
+		List<ReclamoDTO> resultado = new ArrayList<ReclamoDTO>();
 		return resultado;
 	}
 	
-	public List<ReclamoView> reclamosPorUnidad(int codigo, String piso, String numero) {
-		List<ReclamoView> resultado = new ArrayList<ReclamoView>();
+	public List<ReclamoDTO> reclamosPorUnidad(int codigo, String piso, String numero) {
+		List<ReclamoDTO> resultado = new ArrayList<ReclamoDTO>();
 		return resultado;
 	}
 	
-	public ReclamoView reclamosPorNumero(int numero) {
-		ReclamoView resultado = null;
+	public ReclamoDTO reclamosPorNumero(int numero) {
+		ReclamoDTO resultado = null;
 		return resultado;
 	}
 	
-	public List<ReclamoView> reclamosPorPersona(String documento) {
-		List<ReclamoView> resultado = new ArrayList<ReclamoView>();
+	public List<ReclamoDTO> reclamosPorPersona(String documento) {
+		List<ReclamoDTO> resultado = new ArrayList<ReclamoDTO>();
 		return resultado;
 	}
  
-	public int agregarReclamo(int codigo, String piso, String numero, String documento, String ubicaci�n, String descripcion) throws EdificioException, UnidadException, PersonaException {
+	public int agregarReclamo(
+			int codigo,
+			String piso,
+			String numero,
+			String documento,
+			String ubicacion,
+			String descripcion
+	) throws EdificioException, UnidadException, PersonaException {
 		Edificio edificio = buscarEdificio(codigo);
 		Unidad unidad = buscarUnidad(codigo, piso, numero);
 		Persona persona = buscarPersona(documento);
-		Reclamo reclamo = new Reclamo(persona, edificio, ubicaci�n, descripcion, unidad);
+		Reclamo reclamo = new Reclamo(persona, edificio, ubicacion, descripcion, unidad);
 		reclamo.save();
 		return reclamo.getNumero();
 	}

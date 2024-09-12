@@ -1,16 +1,16 @@
-package com.gestor.API.DTO;
+package com.gestor.API.DTOs;
 
-public class UnidadView {
+public class UnidadDTO {
 
 	private int id;
 	private String piso;
 	private String numero;
 	private boolean habitado;
-	private EdificioView edificio;
+	private EdificioDTO edificio;
 	
-	public UnidadView() {}
+	public UnidadDTO() {}
 
-	public UnidadView(int id, String piso, String numero, boolean habitado, EdificioView edificio) {
+	public UnidadDTO(int id, String piso, String numero, boolean habitado, EdificioDTO edificio) {
 		this.id = id;
 		this.piso = piso;
 		this.numero = numero;
@@ -50,11 +50,11 @@ public class UnidadView {
 		this.habitado = habitado;
 	}
 
-	public EdificioView getEdificio() {
+	public EdificioDTO getEdificio() {
 		return edificio;
 	}
 
-	public void setEdificio(EdificioView edificio) {
+	public void setEdificio(EdificioDTO edificio) {
 		this.edificio = edificio;
 	}
 	

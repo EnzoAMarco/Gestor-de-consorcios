@@ -1,4 +1,4 @@
-package com.gestor.API.DTO;
+package com.gestor.API.DTOs;
 
 public enum Estado {
 
