@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Reclamo {
 
-	private int numero;
+	private Integer numero;
 	private Persona usuario;
 	private Edificio edificio;
 	private String ubicacion;

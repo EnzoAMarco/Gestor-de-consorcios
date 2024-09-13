@@ -2,7 +2,7 @@ package com.gestor.API.models;
 
 public class Imagen {
 
-	private int numero;
+	private Integer numero;
 	private String direccion;
 	private String tipo;
 	

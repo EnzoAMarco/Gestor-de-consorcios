@@ -9,7 +9,7 @@ import com.gestor.API.DTOs.EdificioDTO;
 
 public class Edificio {
 	
-	private int codigo;
+	private Integer codigo;
 	private String nombre;
 	private String direccion;
 	private List<Unidad> unidades;

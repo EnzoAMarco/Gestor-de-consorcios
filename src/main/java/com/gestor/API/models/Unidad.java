@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Unidad {
 
-	private int id;
+	private Integer id;
 	private String piso;
 	private String numero;
 	private boolean habitado;
