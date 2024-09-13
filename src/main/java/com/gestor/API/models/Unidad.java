@@ -3,18 +3,35 @@ package com.gestor.API.models;
 import com.gestor.API.DTOs.EdificioDTO;
 import com.gestor.API.DTOs.UnidadDTO;
 import com.gestor.API.exceptions.UnidadException;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table (name = "unidades")
 public class Unidad {
 
+	@Id
 	private Integer id;
+
+	@Column (name = "piso")
 	private String piso;
+
+	@Column (name = "numero")
 	private String numero;
+
+	@Column (name = "habitado")
 	private boolean habitado;
+
+	@ManyToOne
+	@JoinColumn (name = "Id")
 	private Edificio edificio;
+
+	//Hay que ver como hacer una tabla intermedia
 	private List<Persona> duenios;
+
+	//Debe ser una tabla intermedia de duenios e inquilinos
 	private List<Persona> inquilinos;
 	
 	public Unidad(int id, String piso, String numero, Edificio edificio) {

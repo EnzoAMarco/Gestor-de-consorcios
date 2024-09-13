@@ -6,12 +6,23 @@ import java.util.List;
 import java.util.Set;
 
 import com.gestor.API.DTOs.EdificioDTO;
+import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
 
+@Entity
+@Table (name = "edificios")
 public class Edificio {
-	
+	@Id
 	private Integer codigo;
+
+	@Column (name = nombre);
 	private String nombre;
+
+	@Column (name = direccion);
 	private String direccion;
+
+	@OneToMany
+	@JoinColumn (name = Id)
 	private List<Unidad> unidades;
 	
 	public Edificio(int codigo, String nombre, String direccion) {
