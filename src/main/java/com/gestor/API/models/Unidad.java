@@ -7,33 +7,48 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Entity
 @Table(name = "unidades")
 public class Unidad {
 	@Id
-	private Integer id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int identificador;
 
-	@Column(name = "piso")
+	@Column(nullable = false, length = 5)
 	private String piso;
 
-	@Column(name = "numero")
+	@Column(nullable = false, length = 10)
 	private String numero;
 
-	@Column(name = "habitado")
+	@Column(nullable = false)
 	private boolean habitado;
 
 	@ManyToOne
-	@JoinColumn(name="codigoEdificio",referencedColumnName ="codigo" )
+	@JoinColumn(name = "codigoEdificio", nullable = false)  // Aquí usamos @JoinColumn
 	private Edificio edificio;
 
 	@ManyToMany
+	@JoinTable(
+			name = "duenios",
+			joinColumns = @JoinColumn(name = "identificador"),
+			inverseJoinColumns = @JoinColumn(name = "documento")
+	)
 	private List<Persona> duenios;
 
 	@ManyToMany
+	@JoinTable(
+			name = "inquilinos",
+			joinColumns = @JoinColumn(name = "identificador"),
+			inverseJoinColumns = @JoinColumn(name = "documento")
+	)
 	private List<Persona> inquilinos;
-	
+
+	public Unidad() {
+	}
+
 	public Unidad(int id, String piso, String numero, Edificio edificio) {
-		this.id = id;
+		this.identificador = id;
 		this.piso = piso;
 		this.numero = numero;
 		this.habitado = false;
@@ -46,11 +61,11 @@ public class Unidad {
 		duenios = new ArrayList<Persona>();
 		duenios.add(nuevoDuenio);
 	}
-	
+
 	public void agregarDuenio(Persona duenio) {
 		duenios.add(duenio);
 	}
-	
+
 	public void alquilar(Persona inquilino) throws UnidadException {
 		if(!this.habitado) {
 			this.habitado = true;
@@ -64,25 +79,25 @@ public class Unidad {
 	public void agregarInquilino(Persona inquilino) {
 		inquilinos.add(inquilino);
 	}
-	
+
 	public boolean estaHabitado() {
 		return habitado;
 	}
-	
+
 	public void liberar() {
 		this.inquilinos = new ArrayList<Persona>();
 		this.habitado = false;
 	}
-	
+
 	public void habitar() throws UnidadException {
 		if(this.habitado)
 			throw new UnidadException("La unidad ya esta habitada");
 		else
 			this.habitado = true;
 	}
-	
+
 	public int getId() {
-		return id;
+		return identificador;
 	}
 
 	public String getPiso() {
@@ -93,7 +108,7 @@ public class Unidad {
 		return numero;
 	}
 
-	
+
 	public Edificio getEdificio() {
 		return edificio;
 	}
@@ -108,6 +123,6 @@ public class Unidad {
 
 	public UnidadDTO toView() {
 		EdificioDTO auxEdificio = edificio.toView();
-		return new UnidadDTO(id, piso, numero, habitado, auxEdificio);
+		return new UnidadDTO(identificador, piso, numero, habitado, auxEdificio);
 	}
 }

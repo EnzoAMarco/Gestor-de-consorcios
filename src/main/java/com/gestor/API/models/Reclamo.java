@@ -11,34 +11,31 @@ import java.util.List;
 @Table(name = "reclamos")
 public class Reclamo {
 	@Id
-	private Integer numero;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int idReclamo;
 
 	@ManyToOne
-	@JoinColumn(name="documento",referencedColumnName ="documento" )
-	private Persona usuario;
+	@JoinColumn(name = "documento", nullable = false)  // Especificamos @JoinColumn
+	private Persona persona;
 
 	@ManyToOne
-	@JoinColumn(name="codigo",referencedColumnName ="codigo" )
+	@JoinColumn(name = "codigo", nullable = false)  // Especificamos @JoinColumn
 	private Edificio edificio;
 
-	@Column(name = "ubicacion")
-	private String ubicacion;
+	@Column(length = 300)
+	private String ubicacion;  // Si es un área común
 
-	@Column(name = "descripcion")
+	@ManyToOne
+	@JoinColumn(name = "identificador", nullable = true)  // Aquí también usamos @JoinColumn
+	private Unidad unidad;  // Si es una unidad
+
+	@Column(nullable = false, length = 1000)
 	private String descripcion;
 
-	@Column(name = "identificador")
-	private Unidad unidad;
+	public Reclamo() {
+	}
 
-	//no encuentro conexion en la base de datos
-	//private Estado estado;
-
-	//no encuentro conexion en la base de datos
-	//@OneToMany
-	//private List<Imagen> imagenes;
-	
 	public Reclamo(Persona usuario, Edificio edificio, String ubicacion, String descripcion, Unidad unidad) {
-		this.usuario = usuario;
 		this.edificio = edificio;
 		this.ubicacion = ubicacion;
 		this.descripcion = descripcion;
@@ -53,17 +50,6 @@ public class Reclamo {
 		imagen.save(numero);
 	}
 	*/
-	public int getNumero() {
-		return numero;
-	}
-
-	public void setNumero(int numero) {
-		this.numero = numero;
-	}
-
-	public Persona getUsuario() {
-		return usuario;
-	}
 
 	public Edificio getEdificio() {
 		return edificio;

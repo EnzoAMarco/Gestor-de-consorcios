@@ -4,22 +4,30 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table
+@Table (name = "imagenes")
 public class Imagen {
 	@Id
-	private Integer numero;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int numero;
 
-	@Column(name = "path")
-	private String direccion;
+	@Column(nullable = false, length = 300)
+	private String path;
 
-	@Column(name = "tipo")
+	@Column(length = 10)
 	private String tipo;
+
+	@ManyToOne
+	@JoinColumn(name = "idReclamo", nullable = false)
+	private Reclamo reclamo;
 	
-	public Imagen(String direccion, String tipo) {
-		this.direccion = direccion;
+	public Imagen(String tipo) {
 		this.tipo = tipo;
+	}
+
+	public Imagen() {
 	}
 
 	public int getNumero() {
@@ -30,13 +38,6 @@ public class Imagen {
 		this.numero = numero;
 	}
 
-	public String getDireccion() {
-		return direccion;
-	}
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
 
 	public String getTipo() {
 		return tipo;

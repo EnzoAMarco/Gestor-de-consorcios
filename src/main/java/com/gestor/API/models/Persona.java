@@ -10,10 +10,15 @@ import jakarta.persistence.Table;
 @Table(name = "personas")
 public class Persona {
 	@Id
+	@Column(length = 20)
 	private String documento;
-	@Column(name = "nombre")
+
+	@Column(nullable = false, length = 100)
 	private String nombre;
-	
+
+	public Persona() {
+	}
+
 	public Persona(String documento, String nombre) {
 		this.documento = documento;
 		this.nombre = nombre;

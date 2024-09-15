@@ -9,11 +9,12 @@ import com.gestor.API.models.Edificio;
 import com.gestor.API.models.Persona;
 import com.gestor.API.models.Reclamo;
 import com.gestor.API.models.Unidad;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
+@Service
 public class Controlador {
 
 	private static Controlador instancia;
@@ -147,22 +148,7 @@ public class Controlador {
 		List<ReclamoDTO> resultado = new ArrayList<ReclamoDTO>();
 		return resultado;
 	}
- 
-	public int agregarReclamo(
-			int codigo,
-			String piso,
-			String numero,
-			String documento,
-			String ubicacion,
-			String descripcion
-	) throws EdificioException, UnidadException, PersonaException {
-		Edificio edificio = buscarEdificio(codigo);
-		Unidad unidad = buscarUnidad(codigo, piso, numero);
-		Persona persona = buscarPersona(documento);
-		Reclamo reclamo = new Reclamo(persona, edificio, ubicacion, descripcion, unidad);
-		reclamo.save();
-		return reclamo.getNumero();
-	}
+
 	/*
 	public void agregarImagenAReclamo(int numero, String direccion, String tipo) throws ReclamoException {
 		Reclamo reclamo = buscarReclamo(numero);

@@ -12,24 +12,28 @@ import jakarta.persistence.*;
 @Table(name = "edificios")
 public class Edificio {
 	@Id
-	private Integer codigo;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int codigo;
 
-	@Column(name="nombre")
+	@Column(nullable = false, length = 100)
 	private String nombre;
 
-	@Column(name="direccion")
+	@Column(nullable = false, length = 100)
 	private String direccion;
 
-	@OneToMany
-	@JoinTable(name="unidades")
+	@OneToMany(mappedBy = "edificio", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Unidad> unidades;
-	
+
+	public Edificio() {}
+
 	public Edificio(int codigo, String nombre, String direccion) {
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.direccion = direccion;
 		unidades = new ArrayList<Unidad>();
 	}
+
+
 
 	@Override
 	public String toString() {
