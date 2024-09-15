@@ -21,7 +21,7 @@ public class Edificio {
 	@Column(nullable = false, length = 100)
 	private String direccion;
 
-	@OneToMany(mappedBy = "edificio", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "edificio", fetch = FetchType.EAGER)
 	private List<Unidad> unidades;
 
 	public Edificio() {}
@@ -40,9 +40,7 @@ public class Edificio {
 		return "Edificio{" +
 				"codigo=" + codigo +
 				", nombre='" + nombre + '\'' +
-				", direccion='" + direccion + '\'' +
-				", unidades=" + unidades +
-				'}';
+				", direccion='" + direccion + '\'';
 	}
 
 	public void agregarUnidad(Unidad unidad) {

@@ -25,7 +25,7 @@ public class Unidad {
 	private boolean habitado;
 
 	@ManyToOne
-	@JoinColumn(name = "codigoEdificio", nullable = false)  // Aquí usamos @JoinColumn
+	@JoinColumn(name = "codigoedificio", nullable = false)
 	private Edificio edificio;
 
 	@ManyToMany
