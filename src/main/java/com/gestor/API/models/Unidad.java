@@ -7,31 +7,29 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
 @Entity
-@Table (name = "unidades")
+@Table(name = "unidades")
 public class Unidad {
-
 	@Id
 	private Integer id;
 
-	@Column (name = "piso")
+	@Column(name = "piso")
 	private String piso;
 
-	@Column (name = "numero")
+	@Column(name = "numero")
 	private String numero;
 
-	@Column (name = "habitado")
+	@Column(name = "habitado")
 	private boolean habitado;
 
 	@ManyToOne
-	@JoinColumn (name = "Id")
+	@JoinColumn(name="codigoEdificio",referencedColumnName ="codigo" )
 	private Edificio edificio;
 
-	//Hay que ver como hacer una tabla intermedia
+	@ManyToMany
 	private List<Persona> duenios;
 
-	//Debe ser una tabla intermedia de duenios e inquilinos
+	@ManyToMany
 	private List<Persona> inquilinos;
 	
 	public Unidad(int id, String piso, String numero, Edificio edificio) {

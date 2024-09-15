@@ -163,15 +163,15 @@ public class Controlador {
 		reclamo.save();
 		return reclamo.getNumero();
 	}
-	
+	/*
 	public void agregarImagenAReclamo(int numero, String direccion, String tipo) throws ReclamoException {
 		Reclamo reclamo = buscarReclamo(numero);
 		reclamo.agregarImagen(direccion, tipo);
 	}
-	
+	*/
 	public void cambiarEstado(int numero, Estado estado) throws ReclamoException {
 		Reclamo reclamo = buscarReclamo(numero);
-		reclamo.cambiarEstado(estado);
+		//reclamo.cambiarEstado(estado);
 		reclamo.update();
 	}
 	

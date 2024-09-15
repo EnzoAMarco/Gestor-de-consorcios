@@ -1,9 +1,20 @@
 package com.gestor.API.models;
 
-public class Imagen {
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity
+@Table
+public class Imagen {
+	@Id
 	private Integer numero;
+
+	@Column(name = "path")
 	private String direccion;
+
+	@Column(name = "tipo")
 	private String tipo;
 	
 	public Imagen(String direccion, String tipo) {
