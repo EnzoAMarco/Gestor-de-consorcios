@@ -32,8 +32,8 @@ public class Reclamo {
 	private String descripcion;
 
 	private Estado estado;
-
-	//private List<Imagen> imagenes;
+	@OneToMany(mappedBy = "reclamo", fetch = FetchType.EAGER)
+	private List<Imagen> imagenes;
 
 	public Reclamo() {
 	}
