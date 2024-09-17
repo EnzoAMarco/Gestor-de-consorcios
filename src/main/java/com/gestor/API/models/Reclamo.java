@@ -33,19 +33,22 @@ public class Reclamo {
 
 	private Estado estado;
 
-	//private List<Imagen> imagenes;
+	@OneToMany(mappedBy = "reclamo",fetch = FetchType.LAZY)
+	private List<Imagen> imagenes;
 
 	public Reclamo() {
 	}
 
 	public Reclamo(Persona usuario, Edificio edificio, String ubicacion, String descripcion, Unidad unidad) {
+		this.usuario = usuario;
 		this.edificio = edificio;
 		this.ubicacion = ubicacion;
 		this.descripcion = descripcion;
 		this.unidad = unidad;
 		this.estado = Estado.nuevo;
-		//imagenes = new ArrayList<Imagen>();
+		imagenes = new ArrayList<Imagen>();
 	}
+
 	/*
 	public void agregarImagen(String direccion, String tipo) {
 		Imagen imagen = new Imagen(direccion, tipo);
@@ -72,11 +75,11 @@ public class Reclamo {
 
 	public Estado getEstado() {
 		return estado;}
-	/*
+
 	public List<Imagen> getImagenes(){
 		return this.imagenes;
 	}
-	*/
+
 	public void cambiarEstado(Estado estado) {
 		this.estado = estado;}
 
