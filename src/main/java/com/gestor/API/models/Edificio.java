@@ -15,10 +15,10 @@ public class Edificio {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int codigo;
 
-	@Column(nullable = false, length = 100)
+	@Column(name = "nombre")
 	private String nombre;
 
-	@Column(nullable = false, length = 100)
+	@Column(name = "direccion")
 	private String direccion;
 
 	@OneToMany(mappedBy = "edificio", fetch = FetchType.EAGER)
