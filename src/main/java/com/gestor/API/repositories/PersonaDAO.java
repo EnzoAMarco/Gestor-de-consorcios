@@ -1,5 +1,10 @@
 package com.gestor.API.repositories;
 
+import com.gestor.API.models.Edificio;
+import com.gestor.API.models.Persona;
+
+import java.util.List;
+
 public class PersonaDAO {
 
     private static PersonaDAO instacia;
@@ -10,5 +15,10 @@ public class PersonaDAO {
         if (instacia == null)
             instacia = new PersonaDAO();
         return instacia;
+    }
+
+    public List<Persona> obtenerAllPersona(PersonaRepository personaRepository){
+
+        return personaRepository.findAll();
     }
 }

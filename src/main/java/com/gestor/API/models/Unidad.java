@@ -28,7 +28,7 @@ public class Unidad {
 	@JoinColumn(name = "codigoedificio")
 	private Edificio edificio;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "duenios",
 			joinColumns = @JoinColumn(name = "identificador"),
@@ -36,7 +36,7 @@ public class Unidad {
 	)
 	private List<Persona> duenios;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "inquilinos",
 			joinColumns = @JoinColumn(name = "identificador"),
@@ -124,5 +124,18 @@ public class Unidad {
 	public UnidadDTO toView() {
 		EdificioDTO auxEdificio = edificio.toView();
 		return new UnidadDTO(identificador, piso, numero, habitado, auxEdificio);
+	}
+
+	@Override
+	public String toString() {
+		return "Unidad{" +
+				"identificador=" + identificador +
+				", piso='" + piso + '\'' +
+				", numero='" + numero + '\'' +
+				", habitado=" + habitado +
+				", edificio=" + edificio +
+				", duenios=" + duenios +
+				", inquilinos=" + inquilinos +
+				'}';
 	}
 }

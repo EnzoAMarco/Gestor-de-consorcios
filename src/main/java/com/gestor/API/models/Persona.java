@@ -42,5 +42,13 @@ public class Persona {
 
 	public void delete() {
 		
-	}	
+	}
+
+	@Override
+	public String toString() {
+		return "Persona{" +
+				"documento='" + documento + '\'' +
+				", nombre='" + nombre + '\'' +
+				'}';
+	}
 }

@@ -1,8 +1,9 @@
 package com.gestor.API;
 
 import com.gestor.API.models.Edificio;
-import com.gestor.API.repositories.EdificioDAO;
-import com.gestor.API.repositories.EdificioRepository;
+import com.gestor.API.models.Persona;
+import com.gestor.API.models.Unidad;
+import com.gestor.API.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,16 +19,23 @@ public class ApiApplication implements CommandLineRunner {
 	}
 
 	@Autowired
-	EdificioRepository edificioRepository;
+	UnidadRepository unidadRepository;
+	//PersonaRepository personaRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
+		/*
+		List<Persona> personas = PersonaDAO.getInstacia().obtenerAllPersona(personaRepository);
 
-		List<Edificio> edificios = EdificioDAO.getInstacia().getAllEdificios(edificioRepository);
-
-		for (Edificio edificio : edificios) {
-			System.out.println(edificio.toString());
+		for (Persona persona : personas) {
+			System.out.println(persona.toString());
 		}
+		*/
 
+		List<Unidad> unidades = UnidadDAO.getInstacia().listaUnidades(unidadRepository);
+
+		for (Unidad unidad : unidades) {
+			System.out.println(unidad.toString());
+		}
 	}
 }
