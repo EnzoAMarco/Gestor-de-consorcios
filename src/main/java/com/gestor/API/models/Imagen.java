@@ -13,18 +13,21 @@ public class Imagen {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int numero;
 
-	@Column(nullable = false, length = 300)
-	private String path;
+	@Column(name = "path")
+	private String direccion;
 
-	@Column(length = 10)
+	@Column(name = "tipo")
 	private String tipo;
 
 	@ManyToOne
-	@JoinColumn(name = "idReclamo", nullable = false)
+	@JoinColumn(name = "idReclamo")
 	private Reclamo reclamo;
-	
-	public Imagen(String tipo) {
+
+	public Imagen(int numero, String direccion, String tipo, Reclamo reclamo) {
+		this.numero = numero;
+		this.direccion = direccion;
 		this.tipo = tipo;
+		this.reclamo = reclamo;
 	}
 
 	public Imagen() {
