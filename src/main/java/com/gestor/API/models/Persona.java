@@ -10,10 +10,10 @@ import jakarta.persistence.Table;
 @Table(name = "personas")
 public class Persona {
 	@Id
-	@Column(length = 20)
+	@Column(name = "documento")
 	private String documento;
 
-	@Column(nullable = false, length = 100)
+	@Column(name = "nombre")
 	private String nombre;
 
 	public Persona() {

@@ -15,17 +15,17 @@ public class Unidad {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int identificador;
 
-	@Column(nullable = false, length = 5)
+	@Column(name = "piso")
 	private String piso;
 
-	@Column(nullable = false, length = 10)
+	@Column(name = "numero")
 	private String numero;
 
-	@Column(nullable = false)
+	@Column(name = "habitado")
 	private boolean habitado;
 
 	@ManyToOne
-	@JoinColumn(name = "codigoedificio", nullable = false)
+	@JoinColumn(name = "codigoedificio")
 	private Edificio edificio;
 
 	@ManyToMany
