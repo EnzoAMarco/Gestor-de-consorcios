@@ -30,10 +30,12 @@ public class Controlador {
 	@Autowired
 	private UnidadDAO unidadDAO;
 
-	public Controlador(EdificioDAO edificioDAO, PersonaDAO personaDAO, ReclamoDAO reclamoDAO) {
+
+	public Controlador(EdificioDAO edificioDAO, PersonaDAO personaDAO, ReclamoDAO reclamoDAO,UnidadDAO unidadDAO ) {
 		this.edificioDAO = edificioDAO;
 		this.personaDAO = personaDAO;
 		this.reclamoDAO = reclamoDAO;
+		this.unidadDAO = unidadDAO;
 	}
 
 	public List<EdificioDTO> getEdificios(){
