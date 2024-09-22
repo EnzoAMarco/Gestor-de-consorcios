@@ -27,6 +27,9 @@ public class Controlador {
 	@Autowired
 	private ReclamoDAO reclamoDAO;
 
+	@Autowired
+	private UnidadDAO unidadDAO;
+
 	public Controlador(EdificioDAO edificioDAO, PersonaDAO personaDAO, ReclamoDAO reclamoDAO) {
 		this.edificioDAO = edificioDAO;
 		this.personaDAO = personaDAO;
@@ -89,21 +92,30 @@ public class Controlador {
 		return resultado;
 	}
 
-	public List<PersonaDTO> dueniosPorUnidad(int codigo, String piso, String numero) throws UnidadException{
+	public List<PersonaDTO> dueniosPorUnidad(int id) throws UnidadException{
 		List<PersonaDTO> resultado = new ArrayList<PersonaDTO>();
-		Unidad unidad = buscarUnidad(codigo, piso, numero);
-		List<Persona> duenios = unidad.getDuenios();
-		for(Persona persona : duenios)
-			resultado.add(persona.toView());
+		Optional<Unidad> unidad = unidadDAO.findById(id);
+		if(unidad.isPresent()) {
+			List<Persona> duenios = unidad.get().getDuenios();
+			for (Persona persona : duenios)
+				resultado.add(persona.toView());
+		}
+		else {
+			System.out.println("Codigo de unidad incorrecto");
+		}
 		return resultado;
 	}
 
-	public List<PersonaDTO> inquilinosPorUnidad(int codigo, String piso, String numero) throws UnidadException {
+	public List<PersonaDTO> inquilinosPorUnidad(int id) throws UnidadException {
 		List<PersonaDTO> resultado = new ArrayList<PersonaDTO>();
-		Unidad unidad = buscarUnidad(codigo, piso, numero);
-		List<Persona> inquilinos = unidad.getInquilinos();
-		for(Persona persona : inquilinos)
-			resultado.add(persona.toView());
+		Optional<Unidad> unidad = unidadDAO.findById(id);
+		if(unidad.isPresent()) {
+			List<Persona> inquilinos = unidad.get().getInquilinos();
+			for (Persona persona : inquilinos)
+				resultado.add(persona.toView());
+		}
+		else
+			System.out.println("codigo de unidad incorrecto");
 		return resultado;
 	}
 	
