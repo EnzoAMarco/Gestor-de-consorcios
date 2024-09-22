@@ -1,6 +1,7 @@
-package com.gestor.API.repositories;
+package com.gestor.API.DAOs;
 
 import com.gestor.API.models.Edificio;
+import com.gestor.API.repositories.EdificioRepository;
 
 import java.util.List;
 

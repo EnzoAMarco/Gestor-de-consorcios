@@ -1,6 +1,7 @@
-package com.gestor.API.repositories;
+package com.gestor.API.DAOs;
 
 import com.gestor.API.models.Reclamo;
+import com.gestor.API.repositories.ReclamoRepository;
 
 import java.util.List;
 

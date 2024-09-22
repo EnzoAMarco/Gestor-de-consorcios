@@ -1,7 +1,7 @@
 package com.gestor.API;
 
 import com.gestor.API.models.Edificio;
-import com.gestor.API.repositories.EdificioDAO;
+import com.gestor.API.DAOs.EdificioDAO;
 import com.gestor.API.repositories.EdificioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
