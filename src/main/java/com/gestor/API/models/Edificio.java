@@ -47,17 +47,17 @@ public class Edificio {
 		unidades.add(unidad);
 	}
 	
-	public Set<Persona> habilitados(){
-		Set<Persona> habilitados = new HashSet<Persona>();
+	public Set<Persona> habitado(){
+		Set<Persona> habitado = new HashSet<Persona>();
 		for(Unidad unidad : unidades) {
 			List<Persona> duenios = unidad.getDuenios();
 			for(Persona p : duenios)
-				habilitados.add(p);
+				habitado.add(p);
 			List<Persona> inquilinos = unidad.getInquilinos();
 			for(Persona p : inquilinos)
-				habilitados.add(p);
+				habitado.add(p);
 		}
-		return habilitados;
+		return habitado;
 	}
 
 	public int getCodigo() {
@@ -81,7 +81,7 @@ public class Edificio {
 		for(Unidad unidad : unidades) {
 			List<Persona> duenios = unidad.getDuenios();
 			for(Persona p : duenios)
-				duenios.add(p);
+				resultado.add(p);
 		}
 		return resultado;
 	}

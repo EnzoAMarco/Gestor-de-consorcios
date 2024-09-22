@@ -5,6 +5,7 @@ import com.gestor.API.persistencia.repositories.ReclamoRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ReclamoDAO {
@@ -15,8 +16,8 @@ public class ReclamoDAO {
         this.reclamoRepository = reclamoRepository;
     }
 
-    public List<Reclamo> getAllReclamos(ReclamoRepository reclamoRepository) {
-        return  reclamoRepository.findAll();
+    public Optional<Reclamo> buscarPorNumero(int id){
+        return reclamoRepository.findById(id);
     }
 
 }

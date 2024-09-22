@@ -1,5 +1,5 @@
 package com.gestor.API.controllers;
-
+import com.gestor.API.persistencia.DAOs.*;
 import com.gestor.API.DTOs.*;
 import com.gestor.API.exceptions.EdificioException;
 import com.gestor.API.exceptions.PersonaException;
@@ -9,24 +9,30 @@ import com.gestor.API.models.Edificio;
 import com.gestor.API.models.Persona;
 import com.gestor.API.models.Reclamo;
 import com.gestor.API.models.Unidad;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 @Service
 public class Controlador {
+	@Autowired
+	private EdificioDAO edificioDAO;
 
-	private static Controlador instancia;
-	
-	private Controlador() { }
-	
-	public static Controlador getInstancia() {
-		if(instancia == null)
-			instancia = new Controlador();
-		return instancia;
+	@Autowired
+	private PersonaDAO personaDAO;
+
+	@Autowired
+	private ReclamoDAO reclamoDAO;
+
+	public Controlador(EdificioDAO edificioDAO, PersonaDAO personaDAO, ReclamoDAO reclamoDAO) {
+		this.edificioDAO = edificioDAO;
+		this.personaDAO = personaDAO;
+		this.reclamoDAO = reclamoDAO;
 	}
-	
+
 	public List<EdificioDTO> getEdificios(){
 		return null;
 	}
@@ -39,31 +45,47 @@ public class Controlador {
 			resultado.add(unidad.toView());
 		return resultado;
 	}
-	
-	public List<PersonaDTO> habilitadosPorEdificio(int codigo) throws EdificioException{
+
+	public List<PersonaDTO> habitadoPorEdificio(int id) throws EdificioException{
 		List<PersonaDTO> resultado = new ArrayList<PersonaDTO>();
-		Edificio edificio = buscarEdificio(codigo);
-		Set<Persona> habilitados = edificio.habilitados();
-		for(Persona persona : habilitados)
-			resultado.add(persona.toView());
+		Optional<Edificio> edificio = edificioDAO.buscarPorCodigo(id);
+		if (edificio.isEmpty()){
+			System.out.println("no se encontro el edificio");
+		}
+		else {
+			Set<Persona> habitado = edificio.get().habitado();
+			for (Persona persona : habitado)
+				resultado.add(persona.toView());
+		}
 		return resultado;
 	}
 
-	public List<PersonaDTO> dueniosPorEdificio(int codigo) throws EdificioException{
+	public List<PersonaDTO> dueniosPorEdificio(int id) throws EdificioException{
 		List<PersonaDTO> resultado = new ArrayList<PersonaDTO>();
-		Edificio edificio = buscarEdificio(codigo);
-		Set<Persona> duenios = edificio.duenios();
-		for(Persona persona : duenios)
-			resultado.add(persona.toView());
+		Optional<Edificio> edificio = edificioDAO.buscarPorCodigo(id);
+		if (edificio.isEmpty()){
+			System.out.println("no se encontro el edificio");
+		}
+		else {
+			Set<Persona> duenios = edificio.get().duenios();
+			for(Persona persona : duenios)
+				resultado.add(persona.toView());
+		}
 		return resultado;
 	}
 
-	public List<PersonaDTO> habitantesPorEdificio(int codigo) throws EdificioException{
+	public List<PersonaDTO> habitantesPorEdificio(int id) throws EdificioException{
 		List<PersonaDTO> resultado = new ArrayList<PersonaDTO>();
-		Edificio edificio = buscarEdificio(codigo);
-		Set<Persona> habitantes = edificio.duenios();
-		for(Persona persona : habitantes)
-			resultado.add(persona.toView());
+		Optional<Edificio> edificio = edificioDAO.buscarPorCodigo(id);
+		if (edificio.isPresent()) {
+			Set<Persona> habitantes = edificio.get().duenios();
+			for (Persona persona : habitantes)
+				resultado.add(persona.toView());
+		}
+		else {
+			System.out.println("no se encontro el edificio");
+		}
+
 		return resultado;
 	}
 
@@ -119,14 +141,20 @@ public class Controlador {
 		unidad.habitar();;
 	}
 	
-	public void agregarPersona(String documento, String nombre) {
-		Persona persona = new Persona(documento, nombre);
-		persona.save();
+	public void agregarPersona(String id, String nombre) {
+		Optional<Persona> optionalPersona = personaDAO.buscarPorDocumento(id);
+		if (optionalPersona.isEmpty()){
+			Persona persona = new Persona(id, nombre);
+			personaDAO.agregarPersona(persona);
+		}
+		else{
+			System.out.println("La persona ya fue ingresada");
+		}
 	}
 	
-	public void eliminarPersona(String documento) throws PersonaException {
-		Persona persona = buscarPersona(documento);
-		persona.delete();
+	public void eliminarPersona(String id) throws PersonaException {
+		Optional<Persona> persona = personaDAO.buscarPorDocumento(id);
+		personaDAO.deletePersona(id);
 	}
 	
 	public List<ReclamoDTO> reclamosPorEdificio(int codigo){
@@ -155,10 +183,10 @@ public class Controlador {
 		reclamo.agregarImagen(direccion, tipo);
 	}
 	*/
-	public void cambiarEstado(int numero, Estado estado) throws ReclamoException {
-		Reclamo reclamo = buscarReclamo(numero);
+	public void cambiarEstado(int id, Estado estado) throws ReclamoException {
+		Optional<Reclamo> reclamo = reclamoDAO.buscarPorNumero(id);
 		//reclamo.cambiarEstado(estado);
-		reclamo.update();
+		//reclamo.
 	}
 	
 	private Edificio buscarEdificio(int codigo) throws EdificioException {

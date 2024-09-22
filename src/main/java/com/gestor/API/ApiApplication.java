@@ -1,6 +1,9 @@
 package com.gestor.API;
 
+import com.gestor.API.DTOs.PersonaDTO;
+import com.gestor.API.controllers.Controlador;
 import com.gestor.API.models.Edificio;
+import com.gestor.API.models.Persona;
 import com.gestor.API.models.Unidad;
 import com.gestor.API.persistencia.DAOs.EdificioDAO;
 import com.gestor.API.persistencia.DAOs.UnidadDAO;
@@ -19,22 +22,24 @@ public class ApiApplication implements CommandLineRunner {
 	}
 
 	@Autowired
-	EdificioDAO edificioDAO;
-	@Autowired
-	UnidadDAO unidadDAO;
+	Controlador controlador;
+
 
 	@Override
 	public void run(String... args) throws Exception {
+		controlador.dueniosPorEdificio(2);
+		for (PersonaDTO edificio : controlador.dueniosPorEdificio(2)) {
+			System.out.println(edificio.toString());}
 
-//		List<Edificio> edificios = edificioDAO.getAllEdificios();
-//		List<Unidad> unidades = unidadDAO.getAllUnidades();
+//	List<Edificio> edificios = edificioDAO.getAllEdificios();
+//  List<Unidad> unidades = unidadDAO.getAllUnidades();
 //
 //		for (Edificio edificio : edificios) {
 //			System.out.println(edificio.toString());
 //		}
 //
-//		for (Unidad unidad : unidades) {
-//			System.out.println(unidad.toString());
-//		}
+//	for (Unidad unidad : unidades) {
+
+//		System.out.println(unidad.toString());}
 	}
 }

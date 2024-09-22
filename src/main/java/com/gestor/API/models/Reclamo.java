@@ -11,6 +11,7 @@ import java.util.List;
 public class Reclamo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="idreclamo")
 	private int numero;
 
 	@ManyToOne
@@ -28,22 +29,29 @@ public class Reclamo {
 	@JoinColumn(name = "identificador")  // Aquí también usamos @JoinColumn
 	private Unidad unidad;  // Si es una unidad
 
+	@Column(name = "tiporeclamo")
+	private  String tipoReclamo;
+
+	@Column(name="estado")
+	private String estado;
+
 	@Column(name = "descripcion")
 	private String descripcion;
 
-	private Estado estado;
 	@OneToMany(mappedBy = "reclamo", fetch = FetchType.EAGER)
 	private List<Imagen> imagenes;
 
 	public Reclamo() {
 	}
 
-	public Reclamo(Persona usuario, Edificio edificio, String ubicacion, String descripcion, Unidad unidad) {
+	public Reclamo(int numero, Persona usuario, Edificio edificio, String ubicacion, String descripcion, Unidad unidad, String estado) {
+		this.numero=numero;
+		this.usuario= usuario;
 		this.edificio = edificio;
 		this.ubicacion = ubicacion;
 		this.descripcion = descripcion;
 		this.unidad = unidad;
-		this.estado = Estado.nuevo;
+		this.estado = estado;
 		//imagenes = new ArrayList<Imagen>();
 	}
 	/*
@@ -70,14 +78,14 @@ public class Reclamo {
 		return unidad;
 	}
 
-	public Estado getEstado() {
+	public String getEstado() {
 		return estado;}
 	/*
 	public List<Imagen> getImagenes(){
 		return this.imagenes;
 	}
 	*/
-	public void cambiarEstado(Estado estado) {
+	public void cambiarEstado(String estado) {
 		this.estado = estado;}
 
 	public void save() {

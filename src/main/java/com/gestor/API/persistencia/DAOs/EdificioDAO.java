@@ -5,6 +5,8 @@ import com.gestor.API.persistencia.repositories.EdificioRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
+
 @Repository
 public class EdificioDAO {
 
@@ -18,4 +20,9 @@ public class EdificioDAO {
     public List<Edificio> getAllEdificios() {
         return edificioRepository.findAll();
     }
+
+    public Optional<Edificio> buscarPorCodigo(int id){
+        return edificioRepository.findById(id);
+    }
+
 }
