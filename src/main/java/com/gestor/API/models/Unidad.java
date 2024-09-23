@@ -28,6 +28,9 @@ public class Unidad {
 	@JoinColumn(name = "codigoedificio")
 	private Edificio edificio;
 
+	@OneToMany(mappedBy = "unidad", fetch = FetchType.EAGER)
+	private List<Reclamo> reclamo;
+
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "duenios",
@@ -96,6 +99,14 @@ public class Unidad {
 			this.habitado = true;
 	}
 
+	public List<Reclamo> getReclamo() {
+		return reclamo;
+	}
+
+	public void setReclamo(List<Reclamo> reclamo) {
+		this.reclamo = reclamo;
+	}
+
 	public int getId() {
 		return identificador;
 	}
@@ -127,14 +138,12 @@ public class Unidad {
 
 	@Override
 	public String toString() {
-		return "Unidad{" +
-				"identificador=" + identificador +
-				", piso='" + piso + '\'' +
-				", numero='" + numero + '\'' +
-				", habitado=" + habitado +
-				", edificio=" + edificio +
-				", duenios=" + duenios +
-				", inquilinos=" + inquilinos +
-				'}';
+		return " -> Identificador:" + identificador +
+				", piso: " + piso +
+				", numero: " + numero +
+				", habitado: " + habitado +
+				", edificio: " + edificio +
+				", duenios: " + duenios +
+				", inquilinos: " + inquilinos;
 	}
 }
