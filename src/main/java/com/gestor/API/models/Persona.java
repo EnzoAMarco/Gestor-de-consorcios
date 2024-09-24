@@ -15,8 +15,8 @@ public class Persona {
 	@Column(name = "nombre")
 	private String nombre;
 
-	//@OneToMany(mappedBy = "persona", fetch = FetchType.EAGER)
-	//private List<Reclamo> reclamo;
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
+	private List<Reclamo> reclamo;
 
 	public Persona() {
 	}
@@ -34,13 +34,13 @@ public class Persona {
 		return nombre;
 	}
 
-	//public List<Reclamo> getReclamo() {
-	//	return reclamo;
-	//}
-//
-	//public void setReclamo(List<Reclamo> reclamo) {
-	//	this.reclamo = reclamo;
-	//}
+	public List<Reclamo> getReclamo() {
+		return reclamo;
+	}
+
+	public void setReclamo(List<Reclamo> reclamo) {
+		this.reclamo = reclamo;
+	}
 
 	public PersonaDTO toView() {
 		return new PersonaDTO(documento, nombre);

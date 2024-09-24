@@ -1,6 +1,7 @@
 package com.gestor.API;
 
 import com.gestor.API.DTOs.PersonaDTO;
+import com.gestor.API.DTOs.ReclamoDTO;
 import com.gestor.API.controllers.Controlador;
 import com.gestor.API.models.*;
 import com.gestor.API.persistencia.DAOs.*;
@@ -33,17 +34,16 @@ public class ApiApplication implements CommandLineRunner {
 	@Autowired
 	Controlador controlador;
 
-
 	@Override
 	public void run(String... args) throws Exception {
 
 		/*-------------------------------------------EDIFICIO-------------------------------------------*/
 
 		//----------Mostrar todas los edificios
-		List<Edificio> edificios = edificioDAO.obtenerTodoslEdificios();
-		for (Edificio edificio : edificios) {
-			System.out.println(edificio.toString());
-		}
+//		List<Edificio> edificios = edificioDAO.obtenerTodoslEdificios();
+//		for (Edificio edificio : edificios) {
+//			System.out.println(edificio.toString());
+//		}
 
 		/*-------------------------------------------IMAGEN-------------------------------------------*/
 
@@ -87,7 +87,9 @@ public class ApiApplication implements CommandLineRunner {
 
 		/*-------------------------------------------DTOs-------------------------------------------*/
 
-
+		for (Reclamo reclamo : controlador.reclamosPorPersona("DNI30944156")){
+			System.out.println(reclamo.toString());
+		}
 
 	}
 

@@ -102,10 +102,10 @@ public class Reclamo {
 	@Override
 	public String toString() {
 		return " -> Numero:" + numero +
-				", usuario:" + usuario +
-				", edificio:" + edificio +
+				", usuario:" + usuario.getDocumento() +
+				", edificio:" + edificio.getCodigo() +
 				", ubicacion: " + ubicacion +
-				", unidad: " + unidad +
+				", unidad: " + unidad.getId() +
 				", descripcion: " + descripcion +
 				", estado: " + estado +
 				", tipoReclamo: " + tipoReclamo ;

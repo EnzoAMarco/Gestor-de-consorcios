@@ -151,30 +151,47 @@ public class Controlador {
 		persona.delete();
 	}
 	
-	public List<ReclamoDTO> reclamosPorEdificio(int codigo){
-		List<ReclamoDTO> resultado = new ArrayList<ReclamoDTO>();
+	public List<Reclamo> reclamosPorEdificio(int codigo){
+		List<Reclamo> resultado = new ArrayList<Reclamo>();
 		Optional<Edificio> edificio = edificioDAO.buscarPorCodigo(codigo);
-		if(!edificio.isPresent()){
+		if(edificio.isEmpty()){
 			System.out.println("no se encontro ningun edificio");
 		}
 		else {
-
+			resultado=edificio.get().getReclamo();
 		}
+
 		return resultado;
 	}
 	
-	public List<ReclamoDTO> reclamosPorUnidad(int codigo, String piso, String numero) {
-		List<ReclamoDTO> resultado = new ArrayList<ReclamoDTO>();
+	public List<Reclamo> reclamosPorUnidad(int codigo, String piso, String numero) {
+		List<Reclamo> resultado = new ArrayList<Reclamo>();
+		Optional<Unidad> unidad = unidadDAO.findById(codigo);
+		if(unidad.isEmpty()){
+			System.out.println("no se encontro ninguna unidad");
+		}
+		else {
+			resultado=unidad.get().getReclamo();
+		}
+
 		return resultado;
 	}
 	
-	public ReclamoDTO reclamosPorNumero(int numero) {
-		ReclamoDTO resultado = null;
-		return resultado;
+	public Reclamo reclamosPorNumero(int numero) {
+		Optional<Reclamo> reclamo = reclamoDAO.obtenerReclamoPorId(numero);
+		return reclamo.orElse(null);
 	}
 	
-	public List<ReclamoDTO> reclamosPorPersona(String documento) {
-		List<ReclamoDTO> resultado = new ArrayList<ReclamoDTO>();
+	public List<Reclamo> reclamosPorPersona(String documento) {
+		List<Reclamo> resultado = new ArrayList<Reclamo>();
+		Optional<Persona> persona = personaDAO.obtenerPersona(documento);
+		if(persona.isEmpty()){
+			System.out.println("no se encontro ningun edificio");
+		}
+		else {
+			resultado=persona.get().getReclamo();
+		}
+
 		return resultado;
 	}
 
