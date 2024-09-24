@@ -5,6 +5,8 @@ import com.gestor.API.persistencia.repositories.EdificioRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
+
 @Repository
 public class EdificioDAO {
 
@@ -15,7 +17,12 @@ public class EdificioDAO {
     }
 
     //Obtengo todos los edificios de la BD (es solo para probar)
-    public List<Edificio> getAllEdificios() {
+    public List<Edificio> obtenerTodoslEdificios() {
         return edificioRepository.findAll();
     }
+
+    public Optional<Edificio> buscarPorCodigo(int id) {
+        return edificioRepository.findById(id);
+    }
+
 }

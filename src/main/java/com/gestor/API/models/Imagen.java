@@ -20,7 +20,7 @@ public class Imagen {
 	private String tipo;
 
 	@ManyToOne
-	@JoinColumn(name = "idReclamo")
+	@JoinColumn(name = "idreclamo")
 	private Reclamo reclamo;
 
 	public Imagen(int numero, String direccion, String tipo, Reclamo reclamo) {
@@ -41,7 +41,6 @@ public class Imagen {
 		this.numero = numero;
 	}
 
-
 	public String getTipo() {
 		return tipo;
 	}
@@ -54,4 +53,11 @@ public class Imagen {
 		
 	}
 
+	@Override
+	public String toString() {
+		return " -> Numero:" + numero +
+				", direccion: " + direccion +
+				", tipo: " + tipo +
+				", reclamo: " + reclamo;
+	}
 }

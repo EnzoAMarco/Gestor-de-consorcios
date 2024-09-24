@@ -9,16 +9,33 @@ import com.gestor.API.models.Edificio;
 import com.gestor.API.models.Persona;
 import com.gestor.API.models.Reclamo;
 import com.gestor.API.models.Unidad;
+import com.gestor.API.persistencia.DAOs.*;
+import com.gestor.API.persistencia.repositories.ReclamoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 @Service
 public class Controlador {
 
+	@Autowired
+	EdificioDAO edificioDAO;
+	@Autowired
+	UnidadDAO unidadDAO;
+	@Autowired
+	PersonaDAO personaDAO;
+	@Autowired
+	ImagenDAO imagenDAO;
+	@Autowired
+	ReclamoDAO relamoDAO;
+
 	private static Controlador instancia;
-	
+    @Autowired
+    private ReclamoDAO reclamoDAO;
+
 	private Controlador() { }
 	
 	public static Controlador getInstancia() {
@@ -49,12 +66,17 @@ public class Controlador {
 		return resultado;
 	}
 
-	public List<PersonaDTO> dueniosPorEdificio(int codigo) throws EdificioException{
+	public List<PersonaDTO> dueniosPorEdificio(int id) throws EdificioException{
 		List<PersonaDTO> resultado = new ArrayList<PersonaDTO>();
-		Edificio edificio = buscarEdificio(codigo);
-		Set<Persona> duenios = edificio.duenios();
-		for(Persona persona : duenios)
-			resultado.add(persona.toView());
+		Optional<Edificio> edificio = edificioDAO.buscarPorCodigo(id);
+		if (edificio.isEmpty()){
+			System.out.println("no se encontro el edificio");
+		}
+		else {
+			Set<Persona> duenios = edificio.get().duenios();
+			for(Persona persona : duenios)
+				resultado.add(persona.toView());
+		}
 		return resultado;
 	}
 
@@ -129,23 +151,47 @@ public class Controlador {
 		persona.delete();
 	}
 	
-	public List<ReclamoDTO> reclamosPorEdificio(int codigo){
-		List<ReclamoDTO> resultado = new ArrayList<ReclamoDTO>();
+	public List<Reclamo> reclamosPorEdificio(int codigo){
+		List<Reclamo> resultado = new ArrayList<Reclamo>();
+		Optional<Edificio> edificio = edificioDAO.buscarPorCodigo(codigo);
+		if(edificio.isEmpty()){
+			System.out.println("no se encontro ningun edificio");
+		}
+		else {
+			resultado=edificio.get().getReclamo();
+		}
+
 		return resultado;
 	}
 	
-	public List<ReclamoDTO> reclamosPorUnidad(int codigo, String piso, String numero) {
-		List<ReclamoDTO> resultado = new ArrayList<ReclamoDTO>();
+	public List<Reclamo> reclamosPorUnidad(int codigo, String piso, String numero) {
+		List<Reclamo> resultado = new ArrayList<Reclamo>();
+		Optional<Unidad> unidad = unidadDAO.findById(codigo);
+		if(unidad.isEmpty()){
+			System.out.println("no se encontro ninguna unidad");
+		}
+		else {
+			resultado=unidad.get().getReclamo();
+		}
+
 		return resultado;
 	}
 	
-	public ReclamoDTO reclamosPorNumero(int numero) {
-		ReclamoDTO resultado = null;
-		return resultado;
+	public Reclamo reclamosPorNumero(int numero) {
+		Optional<Reclamo> reclamo = reclamoDAO.obtenerReclamoPorId(numero);
+		return reclamo.orElse(null);
 	}
 	
-	public List<ReclamoDTO> reclamosPorPersona(String documento) {
-		List<ReclamoDTO> resultado = new ArrayList<ReclamoDTO>();
+	public List<Reclamo> reclamosPorPersona(String documento) {
+		List<Reclamo> resultado = new ArrayList<Reclamo>();
+		Optional<Persona> persona = personaDAO.obtenerPersona(documento);
+		if(persona.isEmpty()){
+			System.out.println("no se encontro ningun edificio");
+		}
+		else {
+			resultado=persona.get().getReclamo();
+		}
+
 		return resultado;
 	}
 

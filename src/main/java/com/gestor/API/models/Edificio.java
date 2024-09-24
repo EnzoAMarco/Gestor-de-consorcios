@@ -22,6 +22,9 @@ public class Edificio {
 	private String direccion;
 
 	@OneToMany(mappedBy = "edificio", fetch = FetchType.EAGER)
+	private List<Reclamo> reclamo;
+
+	@OneToMany(mappedBy = "edificio", fetch = FetchType.EAGER)
 	private List<Unidad> unidades;
 
 	public Edificio() {}
@@ -31,16 +34,6 @@ public class Edificio {
 		this.nombre = nombre;
 		this.direccion = direccion;
 		unidades = new ArrayList<Unidad>();
-	}
-
-
-
-	@Override
-	public String toString() {
-		return "Edificio{" +
-				"codigo=" + codigo +
-				", nombre='" + nombre + '\'' +
-				", direccion='" + direccion + '\'';
 	}
 
 	public void agregarUnidad(Unidad unidad) {
@@ -76,6 +69,14 @@ public class Edificio {
 		return unidades;
 	}
 
+	public List<Reclamo> getReclamo() {
+		return reclamo;
+	}
+
+	public void setReclamo(List<Reclamo> reclamo) {
+		this.reclamo = reclamo;
+	}
+
 	public Set<Persona> duenios() {
 		Set<Persona> resultado = new HashSet<Persona>();
 		for(Unidad unidad : unidades) {
@@ -106,5 +107,14 @@ public class Edificio {
 
 	public EdificioDTO toView() {
 		return new EdificioDTO(codigo, nombre, direccion);
+	}
+
+	@Override
+	public String toString() {
+		return " -> Codigo: " + codigo +
+				", nombre: " + nombre +
+				", direccion: " + direccion +
+				", reclamo: " + reclamo +
+				", unidades: " + unidades;
 	}
 }

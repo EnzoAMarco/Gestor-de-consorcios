@@ -6,6 +6,7 @@ import com.gestor.API.persistencia.repositories.UnidadRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UnidadDAO {
@@ -18,6 +19,10 @@ public class UnidadDAO {
 
     public List<Unidad> getAllUnidades() {
         return unidadRepository.findAll();
+    }
+
+    public Optional<Unidad> findById(int id) {
+        return unidadRepository.findById(id);
     }
 
 }
