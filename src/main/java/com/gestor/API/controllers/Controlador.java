@@ -1,14 +1,11 @@
 package com.gestor.API.controllers;
+import com.gestor.API.models.*;
 import com.gestor.API.persistencia.DAOs.*;
 import com.gestor.API.DTOs.*;
 import com.gestor.API.exceptions.EdificioException;
 import com.gestor.API.exceptions.PersonaException;
 import com.gestor.API.exceptions.ReclamoException;
 import com.gestor.API.exceptions.UnidadException;
-import com.gestor.API.models.Edificio;
-import com.gestor.API.models.Persona;
-import com.gestor.API.models.Reclamo;
-import com.gestor.API.models.Unidad;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,12 +27,15 @@ public class Controlador {
 	@Autowired
 	private UnidadDAO unidadDAO;
 
+	@Autowired
+	private ImagenDAO imagenDAO;
 
-	public Controlador(EdificioDAO edificioDAO, PersonaDAO personaDAO, ReclamoDAO reclamoDAO,UnidadDAO unidadDAO ) {
+	public Controlador(EdificioDAO edificioDAO, PersonaDAO personaDAO, ReclamoDAO reclamoDAO, UnidadDAO unidadDAO, ImagenDAO imagenDAO ) {
 		this.edificioDAO = edificioDAO;
 		this.personaDAO = personaDAO;
 		this.reclamoDAO = reclamoDAO;
 		this.unidadDAO = unidadDAO;
+		this.imagenDAO = imagenDAO;
 	}
 
 	public List<EdificioDTO> getEdificios(){
@@ -191,16 +191,27 @@ public class Controlador {
 		return resultado;
 	}
 
-	/*
-	public void agregarImagenAReclamo(int numero, String direccion, String tipo) throws ReclamoException {
-		Reclamo reclamo = buscarReclamo(numero);
-		reclamo.agregarImagen(direccion, tipo);
+
+	public void agregarImagenAReclamo(int id, String direccion, String tipo) throws ReclamoException {
+		Optional<Reclamo> reclamo = reclamoDAO.buscarPorNumero(id);
+		if (reclamo.isPresent()) {
+			imagenDAO.save(new Imagen(direccion, tipo, reclamo.get()));
+		//	reclamo.get().agregarImagen(direccion, tipo);
+		// 	reclamoDAO.save(reclamo.get());
+		}
+		else{
+			System.out.println("reclamo no encontrado");}
+
 	}
-	*/
+
 	public void cambiarEstado(int id, Estado estado) throws ReclamoException {
 		Optional<Reclamo> reclamo = reclamoDAO.buscarPorNumero(id);
 		//reclamo.cambiarEstado(estado);
 		//reclamo.
+	}
+
+	public List<Reclamo> retornarReclamo(){
+		return reclamoDAO.findAll();
 	}
 	
 	private Edificio buscarEdificio(int codigo) throws EdificioException {

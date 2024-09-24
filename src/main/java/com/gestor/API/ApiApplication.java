@@ -4,8 +4,10 @@ import com.gestor.API.DTOs.PersonaDTO;
 import com.gestor.API.controllers.Controlador;
 import com.gestor.API.models.Edificio;
 import com.gestor.API.models.Persona;
+import com.gestor.API.models.Reclamo;
 import com.gestor.API.models.Unidad;
 import com.gestor.API.persistencia.DAOs.EdificioDAO;
+import com.gestor.API.persistencia.DAOs.ReclamoDAO;
 import com.gestor.API.persistencia.DAOs.UnidadDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -27,9 +29,10 @@ public class ApiApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		controlador.dueniosPorEdificio(2);
-		for (PersonaDTO edificio : controlador.dueniosPorEdificio(2)) {
-			System.out.println(edificio.toString());}
+		controlador.agregarImagenAReclamo(1,"peke","png");
+		for (Reclamo reclamo : controlador.retornarReclamo()){
+			System.out.println(reclamo);
+		}
 
 //	List<Edificio> edificios = edificioDAO.getAllEdificios();
 //  List<Unidad> unidades = unidadDAO.getAllUnidades();

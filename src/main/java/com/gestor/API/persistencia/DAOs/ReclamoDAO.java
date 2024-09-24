@@ -1,5 +1,6 @@
 package com.gestor.API.persistencia.DAOs;
 
+import com.gestor.API.models.Imagen;
 import com.gestor.API.models.Reclamo;
 import com.gestor.API.persistencia.repositories.ReclamoRepository;
 import org.springframework.stereotype.Repository;
@@ -18,6 +19,12 @@ public class ReclamoDAO {
 
     public Optional<Reclamo> buscarPorNumero(int id){
         return reclamoRepository.findById(id);
+    }
+    public void save(Reclamo reclamo){
+        reclamoRepository.save(reclamo);
+    }
+    public List<Reclamo> findAll(){
+        return reclamoRepository.findAll();
     }
 
 }

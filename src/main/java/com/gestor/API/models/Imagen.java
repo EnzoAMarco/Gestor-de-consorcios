@@ -30,6 +30,17 @@ public class Imagen {
 		this.reclamo = reclamo;
 	}
 
+	public Imagen(String direccion, String tipo, Reclamo reclamo) {
+		this.direccion = direccion;
+		this.tipo = tipo;
+		this.reclamo = reclamo;
+	}
+
+	public Imagen(String direccion, String tipo) {
+		this.direccion = direccion;
+		this.tipo = tipo;
+	}
+
 	public Imagen() {
 	}
 
@@ -50,8 +61,25 @@ public class Imagen {
 		this.tipo = tipo;
 	}
 
-	public void save(int numeroReclamo) {
+	public Reclamo getReclamo() {
+		return reclamo;
+	}
+
+	public void setReclamo(Reclamo reclamo) {
+		this.reclamo = reclamo;
+	}
+
+	public void save(Reclamo reclamo) {
 		
 	}
 
+	@Override
+	public String toString() {
+		return "Imagen{" +
+				"numero=" + numero +
+				", direccion=" + direccion +
+				", tipo=" + tipo +
+				", reclamo=" + reclamo.getNumero() +
+				'}';
+	}
 }

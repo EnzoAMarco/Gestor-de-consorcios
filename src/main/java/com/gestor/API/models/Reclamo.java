@@ -52,15 +52,22 @@ public class Reclamo {
 		this.descripcion = descripcion;
 		this.unidad = unidad;
 		this.estado = estado;
-		//imagenes = new ArrayList<Imagen>();
+		imagenes = new ArrayList<Imagen>();
 	}
-	/*
+
 	public void agregarImagen(String direccion, String tipo) {
 		Imagen imagen = new Imagen(direccion, tipo);
 		imagenes.add(imagen);
-		imagen.save(numero);
+		//imagen.save(numero);
 	}
-	*/
+
+	public int getNumero() {
+		return numero;
+	}
+
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
 
 	public Edificio getEdificio() {
 		return edificio;
@@ -80,11 +87,11 @@ public class Reclamo {
 
 	public String getEstado() {
 		return estado;}
-	/*
+
 	public List<Imagen> getImagenes(){
 		return this.imagenes;
 	}
-	*/
+
 	public void cambiarEstado(String estado) {
 		this.estado = estado;}
 
@@ -94,5 +101,20 @@ public class Reclamo {
 	
 	public void update() {
 		
+	}
+
+	@Override
+	public String toString() {
+		return "Reclamo{" +
+				"numero=" + numero +
+				", usuario=" + usuario +
+				", edificio=" + edificio +
+				", ubicacion='" + ubicacion + '\'' +
+				", unidad=" + unidad +
+				", tipoReclamo='" + tipoReclamo + '\'' +
+				", estado='" + estado + '\'' +
+				", descripcion='" + descripcion + '\'' +
+				", imagenes=" + imagenes +
+				'}';
 	}
 }
